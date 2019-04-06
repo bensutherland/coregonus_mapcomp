@@ -1,14 +1,49 @@
 # coregonus_mapcomp
 Collect and format Coregonus genetic map input data for MapComp analysis
 
-## Methods ##
+
+If you are looking for the method to obtain raw data for the following species, check the repo:     
+`https://github.com/bensutherland/2016_ms_sfonmap`    
+
+- Coho Salmon (Kodama et al. 2014)
+- Chinook Salmon (Naish et al. 2013)
+- Rainbow Trout (Palti et al. 2015)
+- Chum Salmon (Waples et al. 2016)
+- Sockeye Salmon (Larson et al. 2015)
+- Brook Charr (Sutherland et al. 2016)
+- Atlantic Salmon (Lien et al. 2011)
+- Lake Whitefish (Gagnaire et al. 2013)
+- Northern Pike (Rondeau et al. 2014)
+
+...if you are interested in additional maps, then keep reading.     
+
+
+## Collect Raw Input Data
+### What will we use here? 
+In this analysis, we are going to look at the following species:    
+- Lake Whitefish (_Coregonus clupeaformis_) (see above)
+- European Whitefish (_Coregonus lavaretus albock_) (de Kayne et al. 2018
+- Cisco (_Coregonus artedi_)
+
+The analysis will also use the following species (one per genus), using previous data from:     
+- Northern Pike (see above)
+- Atlantic Salmon (see above)
+- Brook Charr (see above)
+
+And we will do a new map from:
+- Chinook Salmon (McKinney et al. 201X)
+
+
 ---
-Obtained the input genetic map material for other species from 
-`/Users/wayne/Documents/bernatchez/01_Sfon_projects/01_Sfon_map/33.2_mapcomp_final_w_AS/02_data/markers.csv`
-md5: 5c6f0ac8ac42696f6e378ad66acef656
+
+Download raw data for all species from:     
+https://www.dropbox.com/s/s5gbp1sak54cwdd/markers.csv?dl=0     
+
+Then, as we are only using several of the following markers, run the following Rscript:     
+ 
 
 
-This includes the following species       
+This datafile includes the following species       
 
 Markers | Species
 :--------: | --------:

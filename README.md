@@ -20,10 +20,10 @@ https://github.com/bensutherland/2016_ms_sfonmap
 
 ## Collect Raw Input Data
 ### What will we use here? 
-In this analysis, we are going to look at the following species:    
+In this analysis, we are going to look at the following Coregonus species:    
 - Lake Whitefish (_Coregonus clupeaformis_) (see above)
-- European Whitefish (_Coregonus lavaretus albock_) (de Kayne et al. 2018
-- Cisco (_Coregonus artedi_)
+- European Whitefish (_Coregonus lavaretus albock_) (de Kayne et al. 2018)
+- Cisco (_Coregonus artedi_) (Blumstein et al. in prep)   
 
 The analysis will also use the following species (one per genus), using previous data from:     
 - Northern Pike (see above)
@@ -31,7 +31,7 @@ The analysis will also use the following species (one per genus), using previous
 - Brook Charr (see above)
 - Chinook Salmon (see above)
 
-And we may do a new map from:
+And we may integrate a higher density map from:
 - Chinook Salmon (McKinney et al. 201X)
 
 
@@ -44,11 +44,11 @@ https://www.dropbox.com/s/s5gbp1sak54cwdd/markers.csv?dl=0
 Put this file into `02_input_materials`, and then run the following R script:     
 `01_scripts/salmonid_maps_v1_subset.r`     
 
-This will leave you with the species of interest from above.    
+This will leave you with the species of interest from above in the file:     
+`02_input_materials/data_v1_subset.csv`         
 
 
-### Obtain data from new publications
-Update or add new maps.    
+### Obtain data from new maps
 Follow the instructions in `00_resources/data_sources.md`     
 This will result in the new maps described above being present in `markers_2.csv`       
  

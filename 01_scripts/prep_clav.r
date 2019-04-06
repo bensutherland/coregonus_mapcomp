@@ -1,4 +1,4 @@
-# To collect data for C. ablock
+# To collect data for C. lavaretus
 
 # Clear space
 # rm(list=ls())

@@ -3,7 +3,7 @@ Collect and format Coregonus genetic map input data for MapComp analysis
 
 
 If you are looking for the method to obtain raw data for the following species, check the repo:     
-`https://github.com/bensutherland/2016_ms_sfonmap`    
+https://github.com/bensutherland/2016_ms_sfonmap    
 
 - Coho Salmon (Kodama et al. 2014)
 - Chinook Salmon (Naish et al. 2013)
@@ -29,34 +29,31 @@ The analysis will also use the following species (one per genus), using previous
 - Northern Pike (see above)
 - Atlantic Salmon (see above)
 - Brook Charr (see above)
+- Chinook Salmon (see above)
 
-And we will do a new map from:
+And we may do a new map from:
 - Chinook Salmon (McKinney et al. 201X)
 
 
 ---
 
-Download raw data for all species from:     
+### Obtain data from first salmonid genetic map comparison
+Download raw data for all species in the previous analysis from:     
 https://www.dropbox.com/s/s5gbp1sak54cwdd/markers.csv?dl=0     
 
-Then, as we are only using several of the following markers, run the following Rscript:     
+Put this file into `02_input_materials`, and then run the following R script:     
+`01_scripts/salmonid_maps_v1_subset.r`     
+
+This will leave you with the species of interest from above.    
+
+
+### Obtain data from new publications
+Update or add new maps.    
+Follow the instructions in `00_resources/data_sources.md`     
+This will result in the new maps described above being present in `markers_2.csv`       
  
 
 
-This datafile includes the following species       
-
-Markers | Species
-:--------: | --------:
-3438 | Cclu
-524 | Eluc
-21105 | Ogor
-6119 | Oket
-5377 | Okis
-955 | Omyk
-6262 | Oner
-6352 | Otsh
-3826 | Sfon
-5917 | Ssal
 
 ##### Female #####
 From supplied files, save the female map as a .csv file `female_linkage_map_final.csv`, replace ^M character with a newline, then run the following code:     

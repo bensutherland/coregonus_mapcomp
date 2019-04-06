@@ -2,9 +2,8 @@
 Collect and format Coregonus genetic map input data for MapComp analysis
 
 
-If you are looking for the method to obtain raw data for the following species, check the repo:     
+If you are looking for the method to obtain raw data for the following species and projects, check the repo:     
 https://github.com/bensutherland/2016_ms_sfonmap    
-
 - Coho Salmon (Kodama et al. 2014)
 - Chinook Salmon (Naish et al. 2013)
 - Rainbow Trout (Palti et al. 2015)
@@ -15,17 +14,17 @@ https://github.com/bensutherland/2016_ms_sfonmap
 - Lake Whitefish (Gagnaire et al. 2013)
 - Northern Pike (Rondeau et al. 2014)
 
-...if you are interested in additional maps, then keep reading.     
+...to obtain additional maps, follow ##collect-raw-input-data[].     
 
+---
 
 ## Collect Raw Input Data
-### What will we use here? 
 In this analysis, we are going to look at the following Coregonus species:    
 - Lake Whitefish (_Coregonus clupeaformis_) (see above)
 - European Whitefish (_Coregonus lavaretus albock_) (de Kayne et al. 2018)
 - Cisco (_Coregonus artedi_) (Blumstein et al. in prep)   
 
-The analysis will also use the following species (one per genus), using previous data from:     
+The following species will also be used, from previous analyses, using one representative species per genus:      
 - Northern Pike (see above)
 - Atlantic Salmon (see above)
 - Brook Charr (see above)
@@ -34,19 +33,15 @@ The analysis will also use the following species (one per genus), using previous
 And we may integrate a higher density map from:
 - Chinook Salmon (McKinney et al. 201X)
 
-
----
-
 ### Obtain data from first salmonid genetic map comparison
 Download raw data for all species in the previous analysis from:     
 https://www.dropbox.com/s/s5gbp1sak54cwdd/markers.csv?dl=0     
 
-Put this file into `02_input_materials`, and then run the following R script:     
+Put the downloaded file into `02_input_materials`, and run within R:     
 `01_scripts/salmonid_maps_v1_subset.r`     
 
-This will leave you with the species of interest from above in the file:     
+To produce a combined input file for the species of interest from the previous analysis, within:    
 `02_input_materials/data_v1_subset.csv`         
-
 
 ### Obtain data from new maps
 Follow the instructions in `00_resources/data_sources.md`     
@@ -54,6 +49,8 @@ This will result in the new maps described above being present in `markers_2.csv
  
 
 
+
+### THIS IS ALL NEW ###
 
 ##### Female #####
 From supplied files, save the female map as a .csv file `female_linkage_map_final.csv`, replace ^M character with a newline, then run the following code:     

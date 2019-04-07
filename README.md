@@ -14,7 +14,7 @@ https://github.com/bensutherland/2016_ms_sfonmap
 - Lake Whitefish (Gagnaire et al. 2013)
 - Northern Pike (Rondeau et al. 2014)
 
-...to obtain additional maps, follow ##collect-raw-input-data[].     
+...to obtain additional maps, follow [Collect raw input](#collect-raw_input-data)     
 
 ---
 
@@ -33,7 +33,7 @@ The following species will also be used, from previous analyses, using one repre
 And we may integrate a higher density map from:
 - Chinook Salmon (McKinney et al. 201X)
 
-### Obtain data from first salmonid genetic map comparison
+### A. Obtain data from first salmonid genetic map comparison
 Download raw data for all species in the previous analysis from:     
 https://www.dropbox.com/s/s5gbp1sak54cwdd/markers.csv?dl=0     
 
@@ -43,11 +43,9 @@ Put the downloaded file into `02_input_materials`, and run within R:
 To produce a combined input file for the species of interest from the previous analysis, within:    
 `02_input_materials/data_v1_subset.csv`         
 
-### Obtain data from new maps
+### B. Obtain data from new maps
 Follow the instructions in `00_resources/data_sources.md`     
-This will result in the new maps described above being present in `markers_2.csv`       
- 
-
+This will collect European Whitefish and Cisco, and add to the previously collected species, into `markers_2.csv`     
 
 
 ### THIS IS ALL NEW ###

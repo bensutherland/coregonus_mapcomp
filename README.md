@@ -48,39 +48,9 @@ Follow the instructions in `00_resources/data_sources.md`
 This will collect European Whitefish and Cisco, and add to the previously collected species, into `markers_2.csv`     
 
 
-### THIS IS ALL NEW ###
+# New #
 
-##### Female #####
-From supplied files, save the female map as a .csv file `female_linkage_map_final.csv`, replace ^M character with a newline, then run the following code:     
-```
-grep -vE '^LG' female_linkage_map_final.csv | awk -F, '{ print "Cart," $1 ","  $10 ",0" "," $2 "," $11 }' - > cart_fem_map.csv
-```
-
-This adds 20,450 Cart markers.
-
-Then run the step of mapcomp to add the totpos column, and convert to fasta. Save as `markers_female_Cart.fasta`
-
-##### Male #####
-Save out the male map the same way, but run the following command instead because of different column names:     
-```
-grep -vE '^LG' male_linkage_map_final.csv | awk -F, '{ print "Cartm," $1 ","  $4 ",0" "," $2 "," $6 }' - > ./cart_male_map.csv
-``` 
-
-As above, convert to `markers_male_Cart.fasta`.     
-
-##### Female no duplicated markers #####
-```
-grep -vE '^LG' female_linkage_map_final.csv | grep -v 'Duplicated' - | awk -F, '{ print "Cartfnodup," $1 ","  $10 ",0" "," $2 "," $11 }' - > ./cart_fem_map_nodup.csv
-# Copy to mapcomp repo
-cp ./cart_fem_map_nodup.csv ./../mapcomp_cisco_w_male/02_data/
-# Convert to fasta
-01_scripts/00_prepare_input_fasta_file_from_csv.sh ./02_data/cart_fem_map_nodup.csv
-# Rename
-mv 02_data/markers.fasta 02_data/markers_female_nodup_Cart.fasta
-```
-
-#### Obtain other maps ####
-Use the stored file and make into a fasta using the mapcomp script.  
+Make into a fasta using the mapcomp script.  
        
 ```
 # Get data

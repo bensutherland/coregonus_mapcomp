@@ -17,16 +17,51 @@ Blumstein et al. in prep (to add)
 Not yet implemented:    
 **Chinook Salmon** *Oncorhynchus tshawytscha*     
 
-## Directions for downloading data
-#### European Whitefish (i.e. C. lavaretus or Clav)
 
-Go to the following figshare repo and download FileS4, a .csv containing the female map. Make sure the filename is FileS4.csv           
+## Per species, download and format data
+### 1. European Whitefish (i.e. C. lavaretus or Clav)
+Go to the following figshare repo and download FileS4, a .csv containing the female map.            
 https://figshare.com/articles/Supplemental_Material_for_De-Kayne_and_Feulner_2018/7093799
-Put this within `coregonus_mapcomp/02_input_materials`.     
+Make sure the filename is `FileS4.csv` Put this within `coregonus_mapcomp/02_input_materials`.     
 
-#### Cisco (i.e. C. artedi, or Cart
+To format markers, run R interactively using the following script:     
+`prep_clav.r`     
+...this will produce a .csv in the MapComp format in `02_input_materials/clav_prepped.csv`.    
+
+
+#### Cisco (i.e. C. artedi, or Cart)
 Obtain from D. Blumstein, in prep. Make sure name is      
 
+### THIS IS ALL NEW ###
+
+##### Female #####
+From supplied files, save the female map as a .csv file `female_linkage_map_final.csv`, replace ^M character with a newline, then run the following code:     
+```
+grep -vE '^LG' female_linkage_map_final.csv | awk -F, '{ print "Cart," $1 ","  $10 ",0" "," $2 "," $11 }' - > cart_fem_map.csv
+```
+
+This adds 20,450 Cart markers.
+
+Then run the step of mapcomp to add the totpos column, and convert to fasta. Save as `markers_female_Cart.fasta`
+
+##### Male #####
+Save out the male map the same way, but run the following command instead because of different column names:     
+```
+grep -vE '^LG' male_linkage_map_final.csv | awk -F, '{ print "Cartm," $1 ","  $4 ",0" "," $2 "," $6 }' - > ./cart_male_map.csv
+``` 
+
+As above, convert to `markers_male_Cart.fasta`.     
+
+##### Female no duplicated markers #####
+```
+grep -vE '^LG' female_linkage_map_final.csv | grep -v 'Duplicated' - | awk -F, '{ print "Cartfnodup," $1 ","  $10 ",0" "," $2 "," $11 }' - > ./cart_fem_map_nodup.csv
+# Copy to mapcomp repo
+cp ./cart_fem_map_nodup.csv ./../mapcomp_cisco_w_male/02_data/
+# Convert to fasta
+01_scripts/00_prepare_input_fasta_file_from_csv.sh ./02_data/cart_fem_map_nodup.csv
+# Rename
+mv 02_data/markers.fasta 02_data/markers_female_nodup_Cart.fasta
+```
 
 #### Chinook Salmon
 (Currently data file provided by email only FileS2.xlsx)

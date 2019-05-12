@@ -53,5 +53,7 @@ grep -vE '^LG' 02_input_materials/S2_cisco_male_map.csv | awk -F, '{ print "Cart
 ``` 
 
 ## Finish and move files to MapComp
-Combine all csv files, then assign totpos via the script within MapComp     
-MapComp: https://github.com/enormandeau/mapcomp
+Combine the new csv files:
+`cat 02_input_materials/cart_fem_map.csv 02_input_materials/cart_male_map.csv 02_input_materials/cart_fem_map_nodup.csv > 02_input_materials/markers_2.csv`
+
+Continue with the README at step XX.    

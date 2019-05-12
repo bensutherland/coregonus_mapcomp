@@ -6,6 +6,9 @@ This is how to obtain data necessary for the second salmonid genetic map analysi
 
 **Note**: Follow steps exactly to ensure compatibility with the formatting script in R.     
 
+The MapComp format is:      
+SpeciesName,LG,Position,Zeroes,markerName,markerSequence      
+
 ## Citations
 The following species will be collected for the final analysis, please cite the following papers if you use the data:     
 **European Whitefish** *C. lavaretus ablock*      
@@ -32,37 +35,22 @@ To format markers, run R interactively using the following script:
 #### Cisco (i.e. C. artedi, or Cart)
 Obtain from D. Blumstein, in prep. Make sure name is      
 
-### THIS IS ALL NEW ###
-
 ##### Female #####
-From supplied files, save the female map as a .csv file `female_linkage_map_final.csv`, replace ^M character with a newline, then run the following code:     
+From supplied files, save the female map as a csv in 02_input_material, and make sure there are no ^M as end of line characters, then run:     
 ```
-grep -vE '^LG' female_linkage_map_final.csv | awk -F, '{ print "Cart," $1 ","  $10 ",0" "," $2 "," $11 }' - > cart_fem_map.csv
+# First save out all (20,450) markers
+grep -vE '^LG' 02_input_materials/S1_cisco_female_map.csv | awk -F, '{ print "Cart," $1 ","  $8 ",0" "," $2 "," $9 }' -  > 02_input_materials/cart_fem_map.csv
+
+# Second save out non-duplicated markers
+grep -vE '^LG' 02_input_materials/cart_fem_map.csv | grep -v 'Duplicated' - | awk -F, '{ print "Cartfnodup," $1 ","  $8 ",0" "," $2 "," $9 }' - > 02_input_materials/cart_fem_map_nodup.csv
+
 ```
 
-This adds 20,450 Cart markers.
 
-Then run the step of mapcomp to add the totpos column, and convert to fasta. Save as `markers_female_Cart.fasta`
+To Edit: Then run the step of mapcomp to add the totpos column, and convert to fasta. Save as `markers_female_Cart.fasta`
 
 ##### Male #####
-Save out the male map the same way, but run the following command instead because of different column names:     
+From supplied files, save the male map as a csv in 02_input_material (note: different column numbers), and make sure there are no ^M as end of line characters, then run:     
 ```
-grep -vE '^LG' male_linkage_map_final.csv | awk -F, '{ print "Cartm," $1 ","  $4 ",0" "," $2 "," $6 }' - > ./cart_male_map.csv
+grep -vE '^LG' 02_input_materials/S2_cisco_male_map.csv | awk -F, '{ print "Cartm," $1 ","  $4 ",0" "," $2 "," $6 }' - > ./02_input_materials/cart_male_map.csv
 ``` 
-
-As above, convert to `markers_male_Cart.fasta`.     
-
-##### Female no duplicated markers #####
-```
-grep -vE '^LG' female_linkage_map_final.csv | grep -v 'Duplicated' - | awk -F, '{ print "Cartfnodup," $1 ","  $10 ",0" "," $2 "," $11 }' - > ./cart_fem_map_nodup.csv
-# Copy to mapcomp repo
-cp ./cart_fem_map_nodup.csv ./../mapcomp_cisco_w_male/02_data/
-# Convert to fasta
-01_scripts/00_prepare_input_fasta_file_from_csv.sh ./02_data/cart_fem_map_nodup.csv
-# Rename
-mv 02_data/markers.fasta 02_data/markers_female_nodup_Cart.fasta
-```
-
-#### Chinook Salmon
-(Currently data file provided by email only FileS2.xlsx)
-

@@ -42,7 +42,7 @@ From supplied files, save the female map as a csv in 02_input_material, and make
 grep -vE '^LG' 02_input_materials/S1_cisco_female_map.csv | awk -F, '{ print "Cart," $1 ","  $8 ",0" "," $2 "," $9 }' -  > 02_input_materials/cart_fem_map.csv
 
 # Second save out non-duplicated markers
-grep -vE '^LG' 02_input_materials/cart_fem_map.csv | grep -v 'Duplicated' - | awk -F, '{ print "Cartfnodup," $1 ","  $8 ",0" "," $2 "," $9 }' - > 02_input_materials/cart_fem_map_nodup.csv
+grep -vE '^LG' 02_input_materials/S1_cisco_female_map.csv | grep -v 'Duplicated' - | awk -F, '{ print "Cartfnodup," $1 ","  $8 ",0" "," $2 "," $9 }' - > 02_input_materials/cart_fem_map_nodup.csv
 
 ```
 

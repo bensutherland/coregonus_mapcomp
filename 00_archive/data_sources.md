@@ -46,11 +46,12 @@ grep -vE '^LG' 02_input_materials/cart_fem_map.csv | grep -v 'Duplicated' - | aw
 
 ```
 
-
-To Edit: Then run the step of mapcomp to add the totpos column, and convert to fasta. Save as `markers_female_Cart.fasta`
-
 ##### Male #####
 From supplied files, save the male map as a csv in 02_input_material (note: different column numbers), and make sure there are no ^M as end of line characters, then run:     
 ```
 grep -vE '^LG' 02_input_materials/S2_cisco_male_map.csv | awk -F, '{ print "Cartm," $1 ","  $4 ",0" "," $2 "," $6 }' - > ./02_input_materials/cart_male_map.csv
 ``` 
+
+## Finish and move files to MapComp
+Combine all csv files, then assign totpos via the script within MapComp     
+MapComp: https://github.com/enormandeau/mapcomp

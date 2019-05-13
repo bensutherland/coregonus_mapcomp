@@ -1,8 +1,13 @@
 # coregonus_mapcomp
-Collect and format Coregonus genetic map input data for MapComp analysis
+Collect and format Coregonus genetic map input data for MapComp analysis         
+
+### Requirements
+MapComp https://github.com/enormandeau/mapcomp     
+bwa (using 0.7.12-r1039)     
+samtools (using v.1.9)    
 
 
-If you are looking for the method to obtain raw data for the following species and projects, check the repo:     
+The following species have been analyzed previously. Check this repo for more info:
 https://github.com/bensutherland/2016_ms_sfonmap    
 - Coho Salmon (Kodama et al. 2014)
 - Chinook Salmon (Naish et al. 2013)
@@ -14,60 +19,54 @@ https://github.com/bensutherland/2016_ms_sfonmap
 - Lake Whitefish (Gagnaire et al. 2013)
 - Northern Pike (Rondeau et al. 2014)
 
-...to obtain additional maps, follow [Collect raw input](#collect-raw_input-data)     
-
----
-
-## Collect Raw Input Data
-In this analysis, we are going to look at the following Coregonus species:    
+In the present analysis, we will analyze the following Coregonus species:    
 - Lake Whitefish (_Coregonus clupeaformis_) (see above)
 - European Whitefish (_Coregonus lavaretus albock_) (de Kayne et al. 2018)
 - Cisco (_Coregonus artedi_) (Blumstein et al. in prep)   
 
-The following species will also be used, from previous analyses, using one representative species per genus:      
+...in addition to the following species (one per genus):     
 - Northern Pike (see above)
 - Atlantic Salmon (see above)
 - Brook Charr (see above)
 - Chinook Salmon (see above)
 
-And we may integrate a higher density map from:
-- Chinook Salmon (McKinney et al. 201X)
+...to obtain the new European Whitefish and Cisco maps, and to obtain the reduced species from previous analyses, follow the steps below 
 
+---
+
+## Collect Raw Input Data
 ### A. Obtain data from first salmonid genetic map comparison
 Download raw data for all species in the previous analysis from:     
 https://www.dropbox.com/s/s5gbp1sak54cwdd/markers.csv?dl=0     
 
 Put the downloaded file into `02_input_materials`, and run within R:     
 `01_scripts/salmonid_maps_v1_subset.r`     
-
-To produce a combined input file for the species of interest from the previous analysis, within:    
-`02_input_materials/data_v1_subset.csv`         
+...this will produce a combined input file for the species of interest from the previous analysis, entitled `02_input_materials/data_v1_subset.csv`         
 
 ### B. Obtain data from new maps
 Follow the instructions in `00_resources/data_sources.md`     
-This will collect European Whitefish and Cisco, and add to the previously collected species, into `markers_2.csv`     
+...this will collect European Whitefish and Cisco and put into the file `02_input_materials/markers_2.csv`     
 
-
-# New #
-
-Make into a fasta using the mapcomp script.  
+### C. Move data into MapComp
+Clone mapcomp onto your computer, in the same level directory as coregonus_mapcomp:      
+```
+cd ..
+git clone https://github.com/enormandeau/mapcomp.git
+cd ./mapcomp
+```
+The rest of the instructions should be followed from within the mapcomp directory.     
        
 ```
 # Get data
-cp /Users/wayne/Documents/general_projects/04_continuing_salmonid_MapComp/00_source_materials/markers.csv 02_data/
-# Convert to fasta
-./01_scripts/00_prepare_input_fasta_file_from_csv.sh ./02_data/markers.csv 
-# save
-mv 02_data/markers.fasta 02_data/markers_orgn_mapcomp_sp.fasta   
+cp ./../coregonus_mapcomp/02_input_materials/markers_2.csv ./02_data/
+cp ./../coregonus_mapcomp/02_input_materials/data_v1_subset.csv ./02_data/
+# Combine and remove header 
+cat 02_data/data_v1_subset.csv 02_data/markers_2.csv | grep -vE 'mname' - > 02_data/markers.csv
+
 ```
 
-### Combine ####
-As long as these prepared are the only in your repo, combine as follows      
-```
-cat 02_data/*.fasta > 02_data/markers.fasta
-# 
-grep '>' 02_data/markers.fasta | awk -F"_" '{ print $1 }' - | sort | uniq -c | less
-```
+See how many markers and how many species:     
+`grep '>' 02_data/markers.fasta | awk -F"_" '{ print $1 }' - | sort | uniq -c | less`
 
 Markers | Species
 :--------: | --------:
@@ -76,25 +75,19 @@ Markers | Species
 6340 | >Cartm
 3438 | >Cclu
  524 | >Eluc
-21105 | >Ogor
-6119 |>Oket
-5377 |>Okis
- 955 |>Omyk
-6262 |>Oner
 6352 |>Otsh
 3826 |>Sfon
 5917 |>Ssal
 
 
-
-
-## Finish
-Change the location of the genome in `./mapcomp` and the `01_scripts/bwa_align_reads.sh`
+### Run MapComp    
+Change the variable `GENOME_FILE` in `./mapcomp` and the `01_scripts/01_bwa_align_reads.sh`
 ```
+# Run the analysis
 ./mapcomp
+# Output figures are available in 04_figures
 ```
 
 Bring in the original mapcomp excel table:    
 `/Users/wayne/Documents/general_projects/04_continuing_salmonid_MapComp/corr_bw_LGs_Sfonv3.4_wRT_2016-12-28.xlsx`
 
-Update, using Cart against Otsh first.   

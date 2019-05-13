@@ -1,4 +1,4 @@
-# Websites and directions to obtain raw data
+## Websites and directions to obtain raw data
 2019-04-05      
 B. Sutherland     
 
@@ -9,7 +9,7 @@ Obtain data for the Coregonus analysis
 The MapComp format is:      
 SpeciesName,LG,Position,Zeroes,markerName,markerSequence      
 
-## Citations
+### Citations
 The following species will be collected for the final analysis, please cite the following papers if you use the data:     
 **European Whitefish** *C. lavaretus ablock*      
 de Kayne et al. 2018 A European Whitefish Linkage Map and Its Implications for Understanding Genome-Wide Synteny Between Salmonids Following Whole Genome Duplication. G3: Genes, Genomes, Genetics 8(12) pp 3745-3755. https://doi.org/10.1534/g3.118.200552      
@@ -18,8 +18,8 @@ de Kayne et al. 2018 A European Whitefish Linkage Map and Its Implications for U
 Blumstein et al. in prep (to add)     
 
 
-## Per species, download and format data
-### 1. European Whitefish (i.e. C. lavaretus or Clav)
+### Per species, download and format data
+#### 1. European Whitefish (i.e. C. lavaretus or Clav)
 Go to the following figshare repo and download FileS4, a .csv containing the female map.            
 https://figshare.com/articles/Supplemental_Material_for_De-Kayne_and_Feulner_2018/7093799
 Make sure the filename is `FileS4.csv`.    
@@ -30,10 +30,10 @@ To format markers, run R interactively using the following script:
 ...this will produce a .csv in the MapComp format in `02_input_materials/clav_prepped.csv`.    
 
 
-#### Cisco (i.e. C. artedi, or Cart)
+#### 2. Cisco (i.e. C. artedi, or Cart)
 Obtain from D. Blumstein, in prep. Follow steps below to obtain the female map, female map non-duplicated markers, male map.       
 
-##### Female
+##### A. Female
 From supplied files, save the female map as a csv in 02_input_material, and make sure there are no ^M as end of line characters, then run:     
 ```
 # First save out all (20,450) markers
@@ -44,13 +44,13 @@ grep -vE '^LG' 02_input_materials/S1_cisco_female_map.csv | grep -v 'Duplicated'
 
 ```
 
-##### Male
+##### B. Male
 From supplied files, save the male map as a csv in 02_input_material (note: different column numbers), and make sure there are no ^M as end of line characters, then run:     
 ```
 grep -vE '^LG' 02_input_materials/S2_cisco_male_map.csv | awk -F, '{ print "Cartm," $1 ","  $4 ",0" "," $2 "," $6 }' - > ./02_input_materials/cart_male_map.csv
 ``` 
 
-## Finish and collect all new files 
+### Finish and collect all new files 
 Combine the new csv files:
 `cat 02_input_materials/clav_prepped.csv 02_input_materials/cart_fem_map.csv 02_input_materials/cart_male_map.csv 02_input_materials/cart_fem_map_nodup.csv | grep -vE '^sp' - > 02_input_materials/markers_2.csv`
 

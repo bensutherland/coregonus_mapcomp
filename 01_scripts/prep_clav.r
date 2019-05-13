@@ -3,46 +3,48 @@
 # Clear space
 # rm(list=ls())
 
-setwd("~/Documents/general_projects/04_continuing_salmonid_MapComp/01_Coregonus_albock_file_prep")
+# Set working directory
+setwd("~/Documents/general_projects/04_continuing_salmonid_MapComp/coregonus_mapcomp")
 
-# read in data
-cabl.in <- read.delim2(file = "FileS4.csv", header = T, sep = ",", stringsAsFactors = F)
-head(cabl.in)
-str(cabl.in)
+# Set variables
+species_short <- "Clav"
 
-# Data needs to be in the following format:
-# "SpeciesName,LG,Position,Zeroes,markerName,markerSequence"
-# better example
-# Cclu,1,0,0,63776,GTATGAGGTTTGTCTTTAACAAAGGTCTCCAGTCAGAAACAGAGATGATGTGTCTTTAACCCTCCAGT
-# Cclu,1,6.135,6.135,64642,CATCAAGTTATAAAAGTAAATCAAGTTGACATGTTAATGTACACCTCAAAACAGCTCTTTTGATTCAG
+# Read in data
+clav.in <- read.delim2(file = "02_input_materials/FileS4.csv", header = T, sep = ",", stringsAsFactors = F)
+head(clav.in)
+str(clav.in)
 
-cabl.in$sp <- rep(x = "Cabl", times = nrow(cabl.in))
-head(cabl.in)
+# MapComp Format:    
+# SpeciesName, LG, Position, Zeroes, markerName, markerSequence
+# e.g. Cclu,1,6.135,6.135,64642,CATCAAGTTATAAAAGTAAATCAAGTTGACATGTTAATGTACACCTCAAAACAGCTCTTTTGATTCAG
 
-# What do your LGs look like
-unique(cabl.in$LG)
+### Re-format to MapComp format ####
+# Add species short name
+clav.in$sp <- rep(x = species_short, times = nrow(clav.in))
 
-# Format the LGs
-cabl.in$LG <- as.numeric(gsub(x = cabl.in$LG, pattern = "SS", replacement = ""))
-str(cabl.in)
+# Add empty vector for totpos calculation within mapcomp
+clav.in$totpos <- as.numeric(rep(x = "0", times = nrow(clav.in)))
 
-# Create empty vector for totpos
-cabl.in$totpos <- as.numeric(rep(x = "0", times = nrow(cabl.in)))
+# Standardize LG names to standardize
+unique(clav.in$LG) # current format
+clav.in$LG <- as.numeric(gsub(x = clav.in$LG
+                              , pattern = "SS" # remove extra characters
+                              , replacement = "")
+                         )
+str(clav.in)
 
-# make fem.pos numeric
-cabl.in$Female_Position <- as.numeric(cabl.in$Female_Position)
+# Make the marker position numeric
+clav.in$Female_Position <- as.numeric(clav.in$Female_Position)
+str(clav.in)
 
-str(cabl.in)
+# Re-order columns and retain only those needed for MapComp format
+clav.in <- clav.in[,c("sp","LG","Female_Position","totpos","RAD_ID","FASTA")]
+head(clav.in)
+str(clav.in)
 
-# Collect in needed format
-cabl.in <- cabl.in[,c("sp","LG","Female_Position","totpos","RAD_ID","FASTA")]
+# Sort by LG and the cM position
+clav.in <- clav.in[order(clav.in$LG, clav.in$Female_Position), ]
+head(clav.in)
 
-head(cabl.in)
-str(cabl.in)
-
-# Sort the LGs
-cabl.in <- cabl.in[order(cabl.in$LG, cabl.in$Female_Position), ]
-head(cabl.in)
-
-# output
-write.csv(x = cabl.in, file = "cabl_prepped.csv", quote = F, row.names = F)
+# Write to output
+write.csv(x = clav.in, file = "02_input_materials/clav_prepped.csv", quote = F, row.names = F)

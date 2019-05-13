@@ -34,7 +34,7 @@ In the present analysis, we will analyze the following Coregonus species:
 
 ---
 
-## Collect Raw Input Data
+## 1. Collect Raw Input Data
 ### A. Obtain data from first salmonid genetic map comparison
 Download raw data for all species in the previous analysis from:     
 https://www.dropbox.com/s/s5gbp1sak54cwdd/markers.csv?dl=0     
@@ -63,6 +63,8 @@ cp ./../coregonus_mapcomp/02_input_materials/data_v1_subset.csv ./02_data/
 # Combine and remove header 
 cat 02_data/data_v1_subset.csv 02_data/markers_2.csv | grep -vE 'mname' - > 02_data/markers.csv
 
+# Prepare input fasta
+./01_scripts/00_prepare_input_fasta_file_from_csv.sh 02_data/markers.csv
 ```
 
 See how many markers and how many species:     
@@ -74,6 +76,7 @@ Markers | Species
 17067 | >Cartfnodup
 6340 | >Cartm
 3438 | >Cclu
+5395 | >Clav 
  524 | >Eluc
 6352 |>Otsh
 3826 |>Sfon

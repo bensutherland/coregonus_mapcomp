@@ -10,7 +10,7 @@ samtools (using v.1.9)
 The following species have been analyzed previously. Check this repo for more info:
 https://github.com/bensutherland/2016_ms_sfonmap    
 - Coho Salmon (Kodama et al. 2014)
-- Chinook Salmon (Naish et al. 2013)
+- Chinook Salmon (Brieuc et al. 2014)
 - Rainbow Trout (Palti et al. 2015)
 - Chum Salmon (Waples et al. 2016)
 - Sockeye Salmon (Larson et al. 2015)
